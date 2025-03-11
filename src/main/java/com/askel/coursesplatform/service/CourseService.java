@@ -1,31 +1,30 @@
 package com.askel.coursesplatform.service;
 
-import com.askel.coursesplatform.model.Course;
+import com.askel.coursesplatform.model.dto.request.CourseRequestDto;
+import com.askel.coursesplatform.model.dto.response.CourseResponseDto;
 import java.util.List;
-import java.util.Optional;
-import org.springframework.stereotype.Service;
 
 
-@Service
-public class CourseService {
+public interface CourseService {
+    List<CourseResponseDto> getAllCourses();
 
-    private final List<Course> courses = List.of(
-            Course.builder().id(1L).name("Business").description("Solve business problems").build(),
-            Course.builder().id(2L).name("Marketing").description("Learn in-demand skills").build()
-    );
+    CourseResponseDto getCourseById(Long id);
 
-    public List<Course> findAllCourses() {
-        return courses;
-    }
+    List<CourseResponseDto> getCourseByName(String name);
 
-    public List<Course> getCourseByName(String name) {
-        return courses.stream()
-                .filter(course -> course.getName().equals(name)).toList();
-    }
+    List<CourseResponseDto> getCoursesByStudentId(Long studentId);
 
-    public Optional<Course> getCourseById(Long id) {
-        return courses.stream()
-                .filter(course -> course.getId().equals(id))
-                .findFirst();
-    }
+    List<CourseResponseDto> getCoursesByInstructorId(Long instructorId);
+
+    CourseResponseDto createCourse(CourseRequestDto courseRequestDto);
+
+    CourseResponseDto updateCourse(Long id, CourseRequestDto courseRequestDto);
+
+    void deleteCourseById(Long id);
+
+    void addStudentToCourse(Long courseId, Long studentId);
+
+    void removeStudentFromCourse(Long courseId, Long studentId);
+
+    CourseResponseDto assignInstructorToCourse(Long courseId, Long instructorId);
 }
