@@ -9,6 +9,7 @@ import com.askel.coursesplatform.repository.CourseRepository;
 import com.askel.coursesplatform.repository.UserRepository;
 import com.askel.coursesplatform.service.CourseService;
 import com.askel.coursesplatform.service.mapper.CourseMapper;
+import com.askel.coursesplatform.utils.ErrorMessages;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -33,8 +34,7 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public CourseResponseDto getCourseById(Long id) {
         Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Course with id: "
-                        + id + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.COURSE_NOT_FOUND));
         return courseMapper.toCourseResponseDto(course);
     }
 
@@ -63,8 +63,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public CourseResponseDto createCourse(CourseRequestDto courseRequestDto) {
         User instructor = userRepository.findById(courseRequestDto.instructorId())
-                .orElseThrow(() -> new EntityNotFoundException("Instructor with id: "
-                        + courseRequestDto.instructorId() + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.INSTRUCTOR_NOT_FOUND));
 
         Course course = courseMapper.toCourse(courseRequestDto, instructor);
         course.setStatus(CourseStatus.ACTIVE);
@@ -80,12 +79,12 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public CourseResponseDto updateCourse(Long id, CourseRequestDto courseRequestDto) {
         Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.COURSE_NOT_FOUND));
 
         User oldInstructor = course.getInstructor();
         User newInstructor = userRepository.findById(courseRequestDto.instructorId())
-                        .orElseThrow(() -> new EntityNotFoundException("Instructor with id: "
-                                + courseRequestDto.instructorId() + " not found"));
+                        .orElseThrow(() -> new EntityNotFoundException(
+                                ErrorMessages.INSTRUCTOR_NOT_FOUND));
 
         course.setName(courseRequestDto.name());
         course.setDescription(courseRequestDto.description());
@@ -108,7 +107,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public void deleteCourseById(Long id) {
         Course course = courseRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.COURSE_NOT_FOUND));
 
         for (User student : course.getStudents()) {
             student.getEnrolledCourses().remove(course);
@@ -128,12 +127,10 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public void addStudentToCourse(Long courseId, Long studentId) {
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: "
-                        + courseId));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.COURSE_NOT_FOUND));
 
         User student = userRepository.findById(studentId)
-                .orElseThrow(() -> new EntityNotFoundException("Student not found with id: "
-                        + studentId));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.STUDENT_NOT_FOUND));
 
         if (course.getStudents().contains(student)) {
             throw new IllegalArgumentException("Student is already enrolled in this course");
@@ -150,12 +147,10 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public void removeStudentFromCourse(Long courseId, Long studentId) {
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: "
-                + courseId));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.COURSE_NOT_FOUND));
 
         User student = userRepository.findById(studentId)
-                .orElseThrow(() -> new EntityNotFoundException("Student not found with id: "
-                + studentId));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.STUDENT_NOT_FOUND));
 
         if (!course.getStudents().contains(student)) {
             throw new IllegalArgumentException("Student is not enrolled in this course");
@@ -172,8 +167,7 @@ public class CourseServiceImpl implements CourseService {
     @Transactional
     public CourseResponseDto assignInstructorToCourse(Long courseId, Long instructorId) {
         Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new EntityNotFoundException("Course not found with id: "
-                        + courseId));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.COURSE_NOT_FOUND));
 
         if (course.getStatus() != CourseStatus.PENDING_INSTRUCTOR) {
             throw new IllegalStateException("Instructor can only be assigned to a course "
@@ -181,8 +175,7 @@ public class CourseServiceImpl implements CourseService {
         }
 
         User newInstructor = userRepository.findById(instructorId)
-                .orElseThrow(() -> new EntityNotFoundException("Instructor not found with id: "
-                        + instructorId));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.INSTRUCTOR_NOT_FOUND));
 
         User oldInstructor = course.getInstructor();
         if (oldInstructor != null && !oldInstructor.equals(newInstructor)) {

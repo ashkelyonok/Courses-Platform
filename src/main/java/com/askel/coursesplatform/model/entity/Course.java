@@ -40,8 +40,4 @@ public class Course {
     private CourseStatus status = CourseStatus.PENDING_INSTRUCTOR;
 
     //private List<Module>; //OneToMany
-    //private BigDecimal price;
-    //private LocalDate startDate;
-    //private LocalDate endDate;
-    //private String category;
 }
