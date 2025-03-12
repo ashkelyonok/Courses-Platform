@@ -70,7 +70,6 @@ public class CourseServiceImpl implements CourseService {
         Course savedCourse = courseRepository.save(course);
 
         instructor.getTaughtCourses().add(savedCourse);
-        userRepository.save(instructor);
 
         return courseMapper.toCourseResponseDto(savedCourse);
     }
@@ -91,10 +90,8 @@ public class CourseServiceImpl implements CourseService {
 
         if (!oldInstructor.equals(newInstructor)) {
             oldInstructor.getTaughtCourses().remove(course);
-            userRepository.save(oldInstructor);
 
             newInstructor.getTaughtCourses().add(course);
-            userRepository.save(newInstructor);
 
             course.setInstructor(newInstructor);
         }
@@ -117,7 +114,6 @@ public class CourseServiceImpl implements CourseService {
         User instructor = course.getInstructor();
         if (instructor != null) {
             instructor.getTaughtCourses().remove(course);
-            userRepository.save(instructor);
         }
 
         courseRepository.delete(course);
@@ -138,9 +134,6 @@ public class CourseServiceImpl implements CourseService {
 
         course.getStudents().add(student);
         student.getEnrolledCourses().add(course);
-
-        courseRepository.save(course);
-        userRepository.save(student);
     }
 
     @Override
@@ -157,10 +150,8 @@ public class CourseServiceImpl implements CourseService {
         }
 
         course.getStudents().remove(student);
-        courseRepository.save(course);
 
         student.getEnrolledCourses().remove(course);
-        userRepository.save(student);
     }
 
     @Override
@@ -180,7 +171,6 @@ public class CourseServiceImpl implements CourseService {
         User oldInstructor = course.getInstructor();
         if (oldInstructor != null && !oldInstructor.equals(newInstructor)) {
             oldInstructor.getTaughtCourses().remove(course);
-            userRepository.save(oldInstructor);
         }
 
         course.setInstructor(newInstructor);
@@ -188,8 +178,26 @@ public class CourseServiceImpl implements CourseService {
         newInstructor.getTaughtCourses().add(course);
 
         Course updatedCourse = courseRepository.save(course);
-        userRepository.save(newInstructor);
 
         return courseMapper.toCourseResponseDto(updatedCourse);
+    }
+
+    @Override
+    @Transactional
+    public void unassignInstructorFromCourse(Long courseId, Long instructorId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.COURSE_NOT_FOUND));
+
+        User instructor = userRepository.findById(instructorId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.INSTRUCTOR_NOT_FOUND));
+
+        if (instructor == null) {
+            throw new IllegalStateException("Course already has no instructor");
+        }
+
+        course.setInstructor(null);
+        course.setStatus(CourseStatus.PENDING_INSTRUCTOR);
+
+        instructor.getTaughtCourses().remove(course);
     }
 }

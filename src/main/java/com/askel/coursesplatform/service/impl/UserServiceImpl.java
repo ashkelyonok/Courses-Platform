@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
         user.setName(userRequestDto.name());
         user.setEmail(userRequestDto.email());
 
-        User uodatedUser = userRepository.save(user);
-        return userMapper.toUserResponseDto(uodatedUser);
+        User updatedUser = userRepository.save(user);
+        return userMapper.toUserResponseDto(updatedUser);
     }
 
     @Override

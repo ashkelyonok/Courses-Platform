@@ -27,4 +27,6 @@ public interface CourseService {
     void removeStudentFromCourse(Long courseId, Long studentId);
 
     CourseResponseDto assignInstructorToCourse(Long courseId, Long instructorId);
+
+    void unassignInstructorFromCourse(Long courseId, Long instructorId);
 }

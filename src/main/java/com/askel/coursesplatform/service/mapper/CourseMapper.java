@@ -29,11 +29,6 @@ public class CourseMapper {
                 course.getId(),
                 course.getName(),
                 course.getDescription(),
-//                course.getInstructor() != null ? course.getInstructor().getId() : null,
-//
-//                course.getStudents().stream()
-//                        .map(User::getId)
-//                        .toList(),
                 instructorDto, // Передаем DTO инструктора
                 studentDtos,   // Передаем список DTO студентов
                 course.getStatus().name()
