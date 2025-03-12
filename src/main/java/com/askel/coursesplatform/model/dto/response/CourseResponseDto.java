@@ -6,7 +6,9 @@ public record CourseResponseDto(
         Long id,
         String name,
         String description,
-        Long instructorId,
-        List<Long> studentIds,
+        //Long instructorId,
+        UserResponseDto instructor,
+        List<UserResponseDto> students,
+        //List<Long> studentIds,
         String courseStatus
 ) {}

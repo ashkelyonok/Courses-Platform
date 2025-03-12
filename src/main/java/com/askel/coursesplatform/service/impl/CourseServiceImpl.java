@@ -137,7 +137,7 @@ public class CourseServiceImpl implements CourseService {
         }
 
         course.getStudents().add(student);
-        student.getTaughtCourses().add(course);
+        student.getEnrolledCourses().add(course);
 
         courseRepository.save(course);
         userRepository.save(student);
