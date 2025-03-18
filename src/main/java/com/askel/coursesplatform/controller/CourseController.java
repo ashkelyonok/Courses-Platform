@@ -50,6 +50,13 @@ public class CourseController {
         return ResponseEntity.ok(courses);
     }
 
+    @GetMapping("/student/name")
+    public ResponseEntity<List<CourseResponseDto>> getCoursesByStudentName(
+            @RequestParam String studentName) {
+        List<CourseResponseDto> courses = courseService.getCoursesByStudentName(studentName);
+        return ResponseEntity.ok(courses);
+    }
+
     @GetMapping("/instructor/{instructorId}")
     public ResponseEntity<List<CourseResponseDto>> getCoursesByInstructorId(
             @PathVariable Long instructorId) {

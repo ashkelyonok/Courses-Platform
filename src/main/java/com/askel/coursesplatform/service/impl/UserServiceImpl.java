@@ -1,5 +1,6 @@
 package com.askel.coursesplatform.service.impl;
 
+import com.askel.coursesplatform.cache.UserCache;
 import com.askel.coursesplatform.model.dto.request.UserRequestDto;
 import com.askel.coursesplatform.model.dto.response.UserResponseDto;
 import com.askel.coursesplatform.model.entity.Course;
@@ -9,6 +10,7 @@ import com.askel.coursesplatform.repository.CourseRepository;
 import com.askel.coursesplatform.repository.UserRepository;
 import com.askel.coursesplatform.service.UserService;
 import com.askel.coursesplatform.service.mapper.UserMapper;
+import com.askel.coursesplatform.utils.ErrorMessages;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import java.util.List;
@@ -22,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final UserCache userCache;
 
     @Override
     public List<UserResponseDto> getAllUsers() {
@@ -32,9 +35,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto getUserById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User with ID "
-                        + id + " not found"));
+        User user = userCache.get(id);
+        if (user != null) {
+            return userMapper.toUserResponseDto(user);
+        }
+
+        user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND));
+
+        userCache.put(id, user);
         return userMapper.toUserResponseDto(user);
     }
 
@@ -43,6 +52,8 @@ public class UserServiceImpl implements UserService {
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
         User user = userMapper.toUser(userRequestDto);
         User savedUser = userRepository.save(user);
+
+        userCache.put(savedUser.getId(), savedUser);
         return userMapper.toUserResponseDto(savedUser);
     }
 
@@ -50,13 +61,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User with ID"
-                        + id + "not found"));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND));
 
         user.setName(userRequestDto.name());
         user.setEmail(userRequestDto.email());
 
         User updatedUser = userRepository.save(user);
+        userCache.put(id, updatedUser);
         return userMapper.toUserResponseDto(updatedUser);
     }
 
@@ -64,8 +75,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void deleteUserById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User with ID"
-                        + id + "not found"));
+                .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.USER_NOT_FOUND));
 
         for (Course course : user.getEnrolledCourses()) {
             course.getStudents().remove(user);
@@ -78,5 +88,6 @@ public class UserServiceImpl implements UserService {
         }
 
         userRepository.deleteById(id);
+        userCache.remove(id);
     }
 }

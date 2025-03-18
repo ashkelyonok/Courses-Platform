@@ -14,6 +14,8 @@ public interface CourseService {
 
     List<CourseResponseDto> getCoursesByStudentId(Long studentId);
 
+    List<CourseResponseDto> getCoursesByStudentName(String studentName);
+
     List<CourseResponseDto> getCoursesByInstructorId(Long instructorId);
 
     CourseResponseDto createCourse(CourseRequestDto courseRequestDto);

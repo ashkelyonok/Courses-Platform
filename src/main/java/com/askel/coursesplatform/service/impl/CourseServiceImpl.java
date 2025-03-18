@@ -1,5 +1,6 @@
 package com.askel.coursesplatform.service.impl;
 
+import com.askel.coursesplatform.cache.CourseCache;
 import com.askel.coursesplatform.model.dto.request.CourseRequestDto;
 import com.askel.coursesplatform.model.dto.response.CourseResponseDto;
 import com.askel.coursesplatform.model.entity.Course;
@@ -23,6 +24,7 @@ public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final CourseMapper courseMapper;
     private final UserRepository userRepository;
+    private final CourseCache courseCache;
 
     @Override
     public List<CourseResponseDto> getAllCourses() {
@@ -33,6 +35,11 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public CourseResponseDto getCourseById(Long id) {
+        Course cachedCourse = courseCache.get(id);
+        if (cachedCourse != null) {
+            return courseMapper.toCourseResponseDto(cachedCourse);
+        }
+
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorMessages.COURSE_NOT_FOUND));
         return courseMapper.toCourseResponseDto(course);
@@ -48,6 +55,13 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseResponseDto> getCoursesByStudentId(Long studentId) {
         return courseRepository.findByStudentId(studentId).stream()
+                .map(courseMapper::toCourseResponseDto)
+                .toList();
+    }
+
+    @Override
+    public List<CourseResponseDto> getCoursesByStudentName(String studentName) {
+        return courseRepository.findAllByStudentName(studentName).stream()
                 .map(courseMapper::toCourseResponseDto)
                 .toList();
     }
@@ -69,7 +83,9 @@ public class CourseServiceImpl implements CourseService {
         course.setStatus(CourseStatus.ACTIVE);
         Course savedCourse = courseRepository.save(course);
 
-        instructor.getTaughtCourses().add(savedCourse);
+        instructor.getTaughtCourses().add(savedCourse); //need it?
+
+        courseCache.put(savedCourse.getId(), savedCourse);
 
         return courseMapper.toCourseResponseDto(savedCourse);
     }
@@ -97,6 +113,9 @@ public class CourseServiceImpl implements CourseService {
         }
 
         Course updatedCourse = courseRepository.save(course);
+
+        courseCache.put(id, updatedCourse);
+
         return courseMapper.toCourseResponseDto(updatedCourse);
     }
 
@@ -116,6 +135,8 @@ public class CourseServiceImpl implements CourseService {
             instructor.getTaughtCourses().remove(course);
         }
 
+        courseCache.remove(id);
+
         courseRepository.delete(course);
     }
 
@@ -133,7 +154,9 @@ public class CourseServiceImpl implements CourseService {
         }
 
         course.getStudents().add(student);
-        student.getEnrolledCourses().add(course);
+        student.getEnrolledCourses().add(course); //need it?
+
+        courseCache.put(courseId, course);
     }
 
     @Override
@@ -151,7 +174,9 @@ public class CourseServiceImpl implements CourseService {
 
         course.getStudents().remove(student);
 
-        student.getEnrolledCourses().remove(course);
+        student.getEnrolledCourses().remove(course); //need?
+
+        courseCache.put(courseId, course);
     }
 
     @Override
@@ -179,6 +204,8 @@ public class CourseServiceImpl implements CourseService {
 
         Course updatedCourse = courseRepository.save(course);
 
+        courseCache.put(courseId, updatedCourse);
+
         return courseMapper.toCourseResponseDto(updatedCourse);
     }
 
@@ -199,5 +226,7 @@ public class CourseServiceImpl implements CourseService {
         course.setStatus(CourseStatus.PENDING_INSTRUCTOR);
 
         instructor.getTaughtCourses().remove(course);
+
+        courseCache.put(courseId, course);
     }
 }

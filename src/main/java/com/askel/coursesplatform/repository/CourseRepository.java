@@ -10,8 +10,14 @@ import org.springframework.data.repository.query.Param;
 public interface CourseRepository extends JpaRepository<Course, Long> {
     Optional<Course> findByName(String name);
 
-    @Query("SELECT c FROM Course c JOIN FETCH c.students s WHERE s.id = :studentId")
+    @Query("SELECT c FROM Course c JOIN c.students s WHERE s.id = :studentId")
     List<Course> findByStudentId(@Param("studentId") Long studentId);
+
+    @Query(value = "SELECT c.* FROM courses c "
+            + "JOIN course_students cs ON c.id = cs.course_id "
+            + "JOIN users u ON cs.user_id = u.id "
+            + "WHERE u.name = :studentName", nativeQuery = true)
+    List<Course> findAllByStudentName(@Param("studentName") String studentName);
 
     List<Course> findByInstructorId(Long instructorId);
 }
