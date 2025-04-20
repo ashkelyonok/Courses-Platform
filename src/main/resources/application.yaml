@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/courses_db
     username: postgres
-    password: ${DB_PASSWORD}
+    password: postgres
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -15,3 +15,8 @@ spring:
     properties:
       hibernate:
         format_sql: false
+  logging:
+    file:
+      name: logs/app.log
+    level:
+      root: INFO

@@ -20,4 +20,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findAllByStudentName(@Param("studentName") String studentName);
 
     List<Course> findByInstructorId(Long instructorId);
+
+    boolean existsByName(String name);
 }
