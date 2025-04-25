@@ -1,20 +1,17 @@
 package com.askel.coursesplatform.service;
 
-import com.askel.coursesplatform.exception.InvalidInputException;
-import com.askel.coursesplatform.exception.LoggingException;
-import com.askel.coursesplatform.exception.ResourceNotFoundException;
 import com.askel.coursesplatform.model.entity.LogObj;
+import java.io.IOException;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
 
 public interface LogService {
-    Resource getLogFileForDate(String date) throws ResourceNotFoundException, LoggingException;
+    //Resource getLogFileForDate(String date) throws ResourceNotFoundException, LoggingException;
 
-    String getDownloadFileName(String date) throws InvalidInputException;
+    //String getDownloadFileName(String date) throws InvalidInputException;
 
-    Long createLogAssync(String date);
+    Long createLogAsync(String date);
 
     LogObj getStatus(Long id);
 
