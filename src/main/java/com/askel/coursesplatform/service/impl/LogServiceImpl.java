@@ -136,7 +136,7 @@ public class LogServiceImpl implements LogService {
             throw new EntityNotFoundException(ErrorMessages.FILE_NOT_FOUND);
         }
         if (!"COMPLETED".equals(logObject.getStatus())) {
-            throw new IllegalStateException("The logs are not ready yet");
+            throw new ResourceNotFoundException("The logs are not ready yet");
         }
 
         Path path = Paths.get(logObject.getFilePath());

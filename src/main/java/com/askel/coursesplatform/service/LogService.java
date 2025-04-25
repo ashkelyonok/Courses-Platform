@@ -7,9 +7,6 @@ import org.springframework.http.ResponseEntity;
 
 
 public interface LogService {
-    //Resource getLogFileForDate(String date) throws ResourceNotFoundException, LoggingException;
-
-    //String getDownloadFileName(String date) throws InvalidInputException;
 
     Long createLogAsync(String date);
 
