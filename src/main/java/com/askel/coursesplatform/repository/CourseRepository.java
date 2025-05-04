@@ -21,5 +21,8 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     List<Course> findByInstructorId(Long instructorId);
 
+    @Query("SELECT DISTINCT c FROM Course c JOIN FETCH c.instructor i WHERE i.name = :instructorName")
+    List<Course> findByInstructorName(@Param("instructorName") String instructorName);
+
     boolean existsByName(String name);
 }
