@@ -3,6 +3,7 @@ package com.askel.coursesplatform.exception;
 import com.askel.coursesplatform.model.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
@@ -44,6 +45,11 @@ public class GlobalExceptionHandler {
         String errorMessage = String.format("Wrong value '%s' for parameter '%s'",
                 ex.getValue(), ex.getName());
         return buildErrorResponse(HttpStatus.BAD_REQUEST, errorMessage);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException ex) {
+        return buildErrorResponse(HttpStatus.FORBIDDEN, ex.getMessage());
     }
 
     private ResponseEntity<ErrorResponse> buildErrorResponse(HttpStatus status, String message) {

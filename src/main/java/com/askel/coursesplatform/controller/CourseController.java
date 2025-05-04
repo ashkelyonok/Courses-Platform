@@ -77,6 +77,14 @@ public class CourseController {
         return ResponseEntity.ok(courses);
     }
 
+    @GetMapping("/instructor/name")
+    @Operation(summary = "Get courses by instructor name")
+    public ResponseEntity<List<CourseResponseDto>> getCoursesByInstructorName(
+            @RequestParam String instructorName) {
+        List<CourseResponseDto> courses = courseService.getCoursesByInstructorName(instructorName);
+        return ResponseEntity.ok(courses);
+    }
+
     @PostMapping("/create")
     @Operation(summary = "Create a new course")
     public ResponseEntity<CourseResponseDto> createCourse(

@@ -24,3 +24,7 @@ spring:
 jwt:
   secret: "XK5kP9wQ2yLv8aFgR7jHn0sT4xZb6cV1mN3qAeIoBd5tJhMpLfYrU7zWkSdO4iGxE9uCy2vKb1oDl8Q5+3aHnP9wQ2yLv8aFgR7jHn0sT4xZb6cV1mN3qAeIoBd5tJhMpLfYrU7zWkSdO4iGxE9uCy2vKb1oDl8Q5"
   expiration-ms: 86400000  # 24 часа
+
+app:
+  security:
+    admin-key: "adminkey"

@@ -2,6 +2,7 @@ package com.askel.coursesplatform.service.impl;
 
 import com.askel.coursesplatform.cache.CourseCache;
 import com.askel.coursesplatform.exception.CourseAlreadyExistsException;
+import com.askel.coursesplatform.exception.ResourceNotFoundException;
 import com.askel.coursesplatform.model.dto.request.CourseRequestDto;
 import com.askel.coursesplatform.model.dto.response.CourseResponseDto;
 import com.askel.coursesplatform.model.entity.Course;
@@ -52,7 +53,7 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> {
                     log.error("Course not found with id: {}", id);
-                    return new EntityNotFoundException(ErrorMessages.COURSE_NOT_FOUND);
+                    return new ResourceNotFoundException(ErrorMessages.COURSE_NOT_FOUND);
                 });
 
         courseCache.put(id, course);
@@ -130,6 +131,24 @@ public class CourseServiceImpl implements CourseService {
                 .filter(Objects::nonNull)
                 .map(courseMapper::toCourseResponseDto)
                 .toList();
+    }
+
+    @Override
+    public List<CourseResponseDto> getCoursesByInstructorName(String instructorName) {
+        log.info("Fetching courses for instructor with name: '{}'", instructorName);
+        List<Course> courses = courseRepository.findByInstructorName(instructorName);
+
+        if (log.isDebugEnabled()) {
+            courses.forEach(c ->
+                    log.debug("Course id={} has instructor with name '{}'", c.getId(), instructorName)
+            );
+        }
+
+        List<CourseResponseDto> result = courses.stream()
+                .map(courseMapper::toCourseResponseDto)
+                .toList();
+        log.info("Found {} courses for instructor '{}'", result.size(), instructorName);
+        return result;
     }
 
     @Override
