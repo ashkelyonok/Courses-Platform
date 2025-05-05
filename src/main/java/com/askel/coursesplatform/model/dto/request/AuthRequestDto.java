@@ -1,5 +1,6 @@
 package com.askel.coursesplatform.model.dto.request;
 
+import com.askel.coursesplatform.model.enums.UserRoles;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -15,5 +16,7 @@ public record AuthRequestDto(
 
         @NotBlank(message = "Password must not be blank")
         @Size(min = 5, message = "Password must be at least 5 characters")
-        String password
+        String password,
+
+        UserRoles role
 ) {}

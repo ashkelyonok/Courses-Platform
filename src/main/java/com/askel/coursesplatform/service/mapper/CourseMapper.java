@@ -1,5 +1,6 @@
 package com.askel.coursesplatform.service.mapper;
 
+import com.askel.coursesplatform.model.dto.UserResponse;
 import com.askel.coursesplatform.model.dto.request.CourseRequestDto;
 import com.askel.coursesplatform.model.dto.response.CourseResponseDto;
 import com.askel.coursesplatform.model.dto.response.UserResponseDto;
@@ -17,12 +18,12 @@ public class CourseMapper {
     private final UserMapper userMapper;
 
     public CourseResponseDto toCourseResponseDto(Course course) {
-        UserResponseDto instructorDto = course.getInstructor() != null
-                ? userMapper.toUserResponseDto(course.getInstructor())
+        UserResponse instructorDto = course.getInstructor() != null
+                ? userMapper.toResponseDto(course.getInstructor())
                 : null;
 
-        List<UserResponseDto> studentDtos = course.getStudents().stream()
-                .map(userMapper::toUserResponseDto) // Преобразуем студентов в DTO
+        List<UserResponse> studentDtos = course.getStudents().stream()
+                .map(userMapper::toResponseDto) // Преобразуем студентов в DTO
                 .toList();
 
         return new CourseResponseDto(

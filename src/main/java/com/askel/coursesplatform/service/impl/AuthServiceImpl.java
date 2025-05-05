@@ -9,7 +9,7 @@ import com.askel.coursesplatform.model.enums.UserRoles;
 import com.askel.coursesplatform.repository.UserRepository;
 import com.askel.coursesplatform.security.JwtService;
 import com.askel.coursesplatform.service.AuthService;
-import com.askel.coursesplatform.service.validation.AdminKeyValidator;
+import com.askel.coursesplatform.validation.AdminKeyValidator;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +29,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Transactional
     public AuthResponseDto register(AuthRequestDto request) {
+        if (request.role() == UserRoles.ADMIN) {
+            throw new IllegalArgumentException("Use admin registration endpoint");
+        }
+
         if (userRepository.existsByEmail(request.email())) {
             throw new IllegalArgumentException("Email already in use");
         }
@@ -37,7 +41,8 @@ public class AuthServiceImpl implements AuthService {
         user.setName(request.name());
         user.setEmail(request.email());
         user.setPassword(passwordEncoder.encode(request.password()));
-        user.setRole(UserRoles.USER);
+//        user.setRole(UserRoles.USER);
+        user.setRole(request.role());
 
         userRepository.save(user);
 

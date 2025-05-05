@@ -1,28 +1,21 @@
 package com.askel.coursesplatform.controller;
 
+import com.askel.coursesplatform.model.dto.UserResponse;
 import com.askel.coursesplatform.model.dto.request.UserRequestDto;
-import com.askel.coursesplatform.model.dto.response.UserResponseDto;
+import com.askel.coursesplatform.model.enums.UserRoles;
 import com.askel.coursesplatform.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import java.util.List;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "User API", description = "API for managing users")
 public class UserController {
 
@@ -30,33 +23,33 @@ public class UserController {
 
     @GetMapping
     @Operation(summary = "Get all users")
-    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
-        List<UserResponseDto> users = userService.getAllUsers();
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
+        List<UserResponse> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
 
     @GetMapping("/{id}")
     @Operation(summary = "Get user by ID")
-    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
-        UserResponseDto userResponseDto = userService.getUserById(id);
-        return ResponseEntity.ok(userResponseDto);
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
+        UserResponse user = userService.getUserById(id);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping("/create")
     @Operation(summary = "Create a new user")
-    public ResponseEntity<UserResponseDto> createUser(
+    public ResponseEntity<UserResponse> createUser(
             @Valid @RequestBody UserRequestDto userRequestDto) {
-        UserResponseDto createdUser = userService.createUser(userRequestDto);
+        UserResponse createdUser = userService.createUser(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @PutMapping("/update/{id}")
     @Operation(summary = "Update user")
-    public ResponseEntity<UserResponseDto> updateUser(
+    public ResponseEntity<UserResponse> updateUser(
             @PathVariable Long id,
             @Valid @RequestBody UserRequestDto userRequestDto
     ) {
-        UserResponseDto updatedUser = userService.updateUser(id, userRequestDto);
+        UserResponse updatedUser = userService.updateUser(id, userRequestDto);
         return ResponseEntity.ok(updatedUser);
     }
 
@@ -65,5 +58,54 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
         return ResponseEntity.noContent().build();
+    }
+
+
+
+
+    @GetMapping("/email/{email}")
+    @Operation(summary = "Get user by email")
+    public ResponseEntity<UserResponse> getUserByEmail(@PathVariable String email) {
+        return ResponseEntity.ok(userService.getUserByEmail(email));
+    }
+
+    @GetMapping("/check-email")
+    @Operation(summary = "Check if email exists")
+    public ResponseEntity<Boolean> checkEmailExists(@RequestParam String email) {
+        return ResponseEntity.ok(userService.checkEmailExists(email));
+    }
+
+    @GetMapping("/course/{courseId}/students")
+    @Operation(summary = "Get students enrolled in course")
+    public ResponseEntity<List<UserResponse>> getCourseStudents(@PathVariable Long courseId) {
+        return ResponseEntity.ok(userService.getUsersEnrolledInCourse(courseId));
+    }
+
+    @GetMapping("/course/{courseId}/instructors")
+    @Operation(summary = "Get instructors teaching course")
+    public ResponseEntity<List<UserResponse>> getCourseInstructors(@PathVariable Long courseId) {
+        return ResponseEntity.ok(userService.getUsersTeachingCourse(courseId));
+    }
+
+    @GetMapping("/search")
+    @Operation(summary = "Search users by name")
+    public ResponseEntity<List<UserResponse>> searchUsersByName(@RequestParam String name) {
+        return ResponseEntity.ok(userService.getUsersByName(name));
+    }
+
+    @GetMapping("/search-by-role")
+    @Operation(summary = "Search users by role and name")
+    public ResponseEntity<List<UserResponse>> searchUsersByRoleAndName(
+            @RequestParam UserRoles role,
+            @RequestParam String name) {
+        return ResponseEntity.ok(userService.getUsersByRoleAndName(role, name));
+    }
+
+    @PatchMapping("/{userId}/role")
+    @Operation(summary = "Change user role")
+    public ResponseEntity<UserResponse> changeUserRole(
+            @PathVariable Long userId,
+            @RequestParam UserRoles newRole) {
+        return ResponseEntity.ok(userService.changeUserRole(userId, newRole));
     }
 }

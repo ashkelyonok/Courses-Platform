@@ -1,9 +1,8 @@
-package com.askel.coursesplatform.service.validation;
+package com.askel.coursesplatform.validation;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.stereotype.Component;
 
 @Component
 public class AdminKeyValidator {
