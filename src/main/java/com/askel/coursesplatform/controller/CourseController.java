@@ -2,6 +2,7 @@ package com.askel.coursesplatform.controller;
 
 import com.askel.coursesplatform.model.dto.request.CourseRequestDto;
 import com.askel.coursesplatform.model.dto.response.CourseResponseDto;
+import com.askel.coursesplatform.model.enums.CourseStatus;
 import com.askel.coursesplatform.service.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -156,5 +157,53 @@ public class CourseController {
             @PathVariable Long instructorId) {
         courseService.unassignInstructorFromCourse(courseId, instructorId);
         return ResponseEntity.noContent().build();
+    }
+
+
+
+    @GetMapping("/status/{status}")
+    @Operation(summary = "Get courses by status")
+    public ResponseEntity<List<CourseResponseDto>> getCoursesByStatus(
+            @PathVariable CourseStatus status) {
+        return ResponseEntity.ok(courseService.getCoursesByStatus(status));
+    }
+
+    @GetMapping("/search/description")
+    @Operation(summary = "Search courses by description")
+    public ResponseEntity<List<CourseResponseDto>> searchCoursesByDescription(
+            @RequestParam String description) {
+        return ResponseEntity.ok(courseService.getCoursesByDescription(description));
+    }
+
+    @GetMapping("/search/status")
+    @Operation(summary = "Search courses by status and name")
+    public ResponseEntity<List<CourseResponseDto>> searchCoursesByStatusAndName(
+            @RequestParam CourseStatus status,
+            @RequestParam String name) {
+        return ResponseEntity.ok(courseService.getCoursesByStatusAndName(status, name));
+    }
+
+    @GetMapping("/without-students")
+    @Operation(summary = "Get courses without students")
+    public ResponseEntity<List<CourseResponseDto>> getCoursesWithoutStudents() {
+        return ResponseEntity.ok(courseService.getCoursesWithoutStudents());
+    }
+
+    @GetMapping("/without-instructor")
+    @Operation(summary = "Get courses without instructor")
+    public ResponseEntity<List<CourseResponseDto>> getCoursesWithoutInstructor() {
+        return ResponseEntity.ok(courseService.getCoursesWithoutInstructor());
+    }
+
+    @GetMapping("/with-instructor")
+    @Operation(summary = "Get courses with instructor")
+    public ResponseEntity<List<CourseResponseDto>> getCoursesWithInstructor() {
+        return ResponseEntity.ok(courseService.getCoursesWithInstructor());
+    }
+
+    @GetMapping("/with-students")
+    @Operation(summary = "Get courses with students")
+    public ResponseEntity<List<CourseResponseDto>> getCoursesWithStudents() {
+        return ResponseEntity.ok(courseService.getCoursesWithStudents());
     }
 }

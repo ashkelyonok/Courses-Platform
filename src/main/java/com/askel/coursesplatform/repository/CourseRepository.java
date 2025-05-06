@@ -3,6 +3,7 @@ package com.askel.coursesplatform.repository;
 import com.askel.coursesplatform.model.entity.Course;
 import java.util.List;
 import java.util.Optional;
+import com.askel.coursesplatform.model.enums.CourseStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,4 +26,17 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findByInstructorName(@Param("instructorName") String instructorName);
 
     boolean existsByName(String name);
+
+    List<Course> findByStatus(CourseStatus status);
+    List<Course> findByNameContainingIgnoreCase(String namePart);
+    List<Course> findByDescriptionContainingIgnoreCase(String descriptionPart);
+    List<Course> findByStatusAndNameContainingIgnoreCase(CourseStatus status, String namePart);
+    List<Course> findByStudentsEmpty();
+    List<Course> findByInstructorIsNull();
+
+    @Query("SELECT c FROM Course c WHERE c.instructor IS NOT NULL")
+    List<Course> findWithInstructor();
+
+    @Query("SELECT c FROM Course c WHERE SIZE(c.students) > 0")
+    List<Course> findWithStudents();
 }

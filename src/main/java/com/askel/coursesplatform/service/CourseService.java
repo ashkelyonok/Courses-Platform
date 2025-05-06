@@ -2,6 +2,8 @@ package com.askel.coursesplatform.service;
 
 import com.askel.coursesplatform.model.dto.request.CourseRequestDto;
 import com.askel.coursesplatform.model.dto.response.CourseResponseDto;
+import com.askel.coursesplatform.model.enums.CourseStatus;
+
 import java.util.List;
 
 
@@ -35,4 +37,20 @@ public interface CourseService {
     CourseResponseDto assignInstructorToCourse(Long courseId, Long instructorId);
 
     void unassignInstructorFromCourse(Long courseId, Long instructorId);
+
+
+
+    List<CourseResponseDto> getCoursesByStatus(CourseStatus status);
+
+    List<CourseResponseDto> getCoursesByDescription(String descriptionPart);
+
+    List<CourseResponseDto> getCoursesByStatusAndName(CourseStatus status, String namePart);
+
+    List<CourseResponseDto> getCoursesWithoutStudents();
+
+    List<CourseResponseDto> getCoursesWithoutInstructor();
+
+    List<CourseResponseDto> getCoursesWithInstructor();
+
+    List<CourseResponseDto> getCoursesWithStudents();
 }

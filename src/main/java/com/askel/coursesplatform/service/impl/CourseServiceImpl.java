@@ -439,4 +439,55 @@ public class CourseServiceImpl implements CourseService {
         courseCache.put(courseId, course);
         log.info("Successfully unassigned instructor {} from course {}", instructorId, courseId);
     }
+
+    @Override
+    public List<CourseResponseDto> getCoursesByStatus(CourseStatus status) {
+        return courseRepository.findByStatus(status).stream()
+                .map(courseMapper::toCourseResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourseResponseDto> getCoursesByDescription(String descriptionPart) {
+        return courseRepository.findByDescriptionContainingIgnoreCase(descriptionPart).stream()
+                .map(courseMapper::toCourseResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourseResponseDto> getCoursesByStatusAndName(CourseStatus status, String namePart) {
+        return courseRepository.findByStatusAndNameContainingIgnoreCase(status, namePart).stream()
+                .map(courseMapper::toCourseResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourseResponseDto> getCoursesWithoutStudents() {
+        return courseRepository.findByStudentsEmpty().stream()
+                .map(courseMapper::toCourseResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourseResponseDto> getCoursesWithoutInstructor() {
+        return courseRepository.findByInstructorIsNull().stream()
+                .map(courseMapper::toCourseResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourseResponseDto> getCoursesWithInstructor() {
+        log.info("Getting courses with instructor");
+        return courseRepository.findWithInstructor().stream()
+                .map(courseMapper::toCourseResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CourseResponseDto> getCoursesWithStudents() {
+        log.info("Getting courses with students");
+        return courseRepository.findWithStudents().stream()
+                .map(courseMapper::toCourseResponseDto)
+                .collect(Collectors.toList());
+    }
 }
