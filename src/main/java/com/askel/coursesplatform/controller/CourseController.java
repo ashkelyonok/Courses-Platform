@@ -12,6 +12,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,6 +88,7 @@ public class CourseController {
     }
 
     @PostMapping("/create")
+    //@PreAuthorize("hasAnyRole('ADMIN', 'INSTRUCTOR')")
     @Operation(summary = "Create a new course")
     public ResponseEntity<CourseResponseDto> createCourse(
             @Valid @RequestBody CourseRequestDto courseRequestDto
@@ -98,6 +100,7 @@ public class CourseController {
     @Validated
     @PostMapping("/bulk")
     @Operation(summary = "Create courses")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<CourseResponseDto>> createCoursesBulk(
             @RequestBody List<CourseRequestDto> courseRequestDtos
     ) {
@@ -106,6 +109,7 @@ public class CourseController {
     }
 
     @PutMapping("/update/{id}")
+    //@PreAuthorize("hasRole('ADMIN') or (hasRole('INSTRUCTOR') and @securityService.isCourseInstructor(#id))")
     @Operation(summary = "Update course")
     public ResponseEntity<CourseResponseDto> updateCourse(
             @PathVariable Long id,
@@ -117,6 +121,7 @@ public class CourseController {
 
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "Delete course by ID")
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
         courseService.deleteCourseById(id);
         return ResponseEntity.noContent().build();
@@ -124,6 +129,7 @@ public class CourseController {
 
     @PostMapping("/{courseId}/student/{studentId}")
     @Operation(summary = "Add student to course")
+    @PreAuthorize("hasRole('ADMIN') or (hasRole('INSTRUCTOR') and @securityService.isCourseInstructor(#courseId))")
     public ResponseEntity<Void> addStudentToCourse(
             @PathVariable @Parameter(description = "ID of the course") Long courseId,
             @PathVariable @Parameter(description = "ID of the student to add") Long studentId) {
@@ -133,6 +139,7 @@ public class CourseController {
 
     @DeleteMapping("/{courseId}/student/{studentId}")
     @Operation(summary = "Remove student from course")
+    //@PreAuthorize("hasRole('ADMIN') or (hasRole('INSTRUCTOR') and @securityService.isCourseInstructor(#courseId))")
     public ResponseEntity<Void> removeStudentFromCourse(
             @PathVariable @Parameter(description = "ID of the course") Long courseId,
             @PathVariable @Parameter(description = "ID of the student to remove") Long studentId) {

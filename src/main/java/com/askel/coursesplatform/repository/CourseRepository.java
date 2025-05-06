@@ -39,4 +39,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query("SELECT c FROM Course c WHERE SIZE(c.students) > 0")
     List<Course> findWithStudents();
+
+    boolean existsByIdAndInstructorId(Long courseId, Long instructorId);
 }
