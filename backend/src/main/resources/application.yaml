@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: coursesplatform
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+      jdbc:
+        time_zone: UTC
+
+logging:
+  file:
+    name: logs/app.log
+  level:
+    root: INFO
+    org:
+      springframework:
+        transaction: DEBUG
+      hibernate:
+        engine:
+          transaction: DEBUG
+
+jwt:
+  secret: "7df82b2685a0904d3e81199830fe345b167cec431625c33a51b039e7655435859d2236b5b7feb1b93283d0bb1cded379652d40a48c9ea9187f0387a41134000f48a05646045ef2f4e28352988edd276b6a80636b741d37038a9517f39d7a42cb6dccaf53c01b538c10b2297026fe87a40197471de8d056d3f8aa0b4c85f0cbbd"
+  expiration-ms: 86400000  # 24 часа
+
+app:
+  security:
+    admin-key: "adminkey"

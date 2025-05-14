@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.header {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #1a202c;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
+.search {
+  flex: 1;
+  max-width: 400px;
+  margin: 0 1rem;
+}
+
+.searchInput {
+  border-radius: 8px !important;
+  padding: 0.5rem 1rem !important;
+  font-size: 1rem !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.searchInput:hover,
+.searchInput:focus {
+  border-color: #007bff !important;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1) !important;
+  outline: none !important;
+}
+
+.auth {
+  display: flex;
+  align-items: center;
+}
+
+.authLinks {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.authLink {
+  color: #007bff;
+  font-size: 1rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.authLink:hover {
+  text-decoration: underline;
+}
+
+.avatar {
+  background-color: #007bff;
+  cursor: pointer;
+}
+
+.avatar:hover {
+  background-color: #0056b3;
+}
+
+.dropdown :global(.ant-dropdown-menu) {
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in;
+}
+
+.dropdown :global(.ant-dropdown-menu-item) {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  padding: 0.5rem 1rem;
+}
+
+.dropdown :global(.ant-dropdown-menu-item:hover) {
+  background-color: #f0f0f0;
+}
+
+.menuToggle {
+  display: none;
+}
+
+.menuIcon {
+  font-size: 1.5rem;
+  color: #1a202c;
+  cursor: pointer;
+}
+
+.mobileMenu {
+  background: #ffffff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 2rem;
+  animation: slideIn 0.3s ease-in;
+}
+
+.mobileSearch {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 2rem;
+}
+
+.mobileAuth {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobileAuthLink {
+  color: #007bff;
+  font-size: 1.25rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mobileAuthLink:hover {
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .search {
+    display: none;
+  }
+
+  .auth {
+    display: none;
+  }
+
+  .menuToggle {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .logoLink {
+    font-size: 1rem;
+  }
+
+  .logoIcon {
+    width: 32px;
+    height: 32px;
+  }
+}

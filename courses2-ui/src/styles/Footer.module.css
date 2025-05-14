@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.footer {
+  background-color: #373737;
+  color: #ffffff;
+  padding: 4rem 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.logoIcon {
+  width: 40px;
+  height: 40px;
+  margin-right: 0.5rem;
+}
+
+.logo span {
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.linkColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.linkTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.link {
+  font-size: 0.9rem;
+  color: #ffffff;
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #d1d5db;
+}
+
+.social {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.socialLink {
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.socialLink:hover {
+  color: #d1d5db;
+}
+
+.socialIcon {
+  font-size: 1.5rem;
+}
+
+.copyright {
+  font-size: 0.85rem;
+  color: #d1d5db;
+  margin-top: 2rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 2rem 1rem;
+  }
+
+  .links {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .linkColumn {
+    align-items: center;
+  }
+
+  .linkTitle {
+    font-size: 0.9rem;
+  }
+
+  .link {
+    font-size: 0.85rem;
+  }
+
+  .socialIcon {
+    font-size: 1.25rem;
+  }
+
+  .copyright {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .logoIcon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .logo span {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,419 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem;
+  background: linear-gradient(145deg, #f9fafb, #ffffff);
+  min-height: calc(100vh - 200px);
+}
+
+.profileCard {
+  background: linear-gradient(145deg, #ffffff, #f7fafc);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.profileCard:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+.profileCard :global(.ant-card-head) {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.profileCard :global(.ant-card-body) {
+  padding: 1rem;
+}
+
+.descriptions :global(.ant-descriptions-item-label) {
+  font-size: 0.9rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  background-color: #f9fafb;
+  color: #4a5568;
+}
+
+.descriptions :global(.ant-descriptions-item-content) {
+  font-size: 0.9rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  color: #4a5568;
+  line-height: 1.5;
+}
+
+.profileName {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  color: #000000;
+  font-weight: 500;
+}
+
+.role {
+  text-transform: capitalize;
+}
+
+.editButton {
+  color: #007bff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  font-size: 1.25rem !important;
+  padding: 0.5rem;
+}
+
+.editButton:hover {
+  color: #0056b3;
+}
+
+.divider {
+  margin: 1.5rem 0;
+  margin-left: -1rem; /* Negate the card body's 1rem left padding */
+  margin-right: -1rem; /* Negate the card body's 1rem right padding for consistency */
+}
+
+.divider :global(.ant-divider-inner-text) {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  padding-left: 0 !important; /* Remove default left padding */
+  margin-left: 0; /* Reset previous margin adjustment */
+  position: relative;
+  left: 0; /* Remove the previous left shift */
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+}
+
+.subSectionTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a202c;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+}
+
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.noCourses {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 30vh;
+}
+
+.noCourses :global(.ant-empty-description) {
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+}
+
+.noCoursesText {
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+}
+
+.exploreButton {
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  border: none;
+  color: #ffffff;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  padding: 0.4rem 1.25rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+
+.exploreButton:hover {
+  background: linear-gradient(90deg, #0056b3, #003d82);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.logoutSection {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+}
+
+.logoutButton {
+  background: linear-gradient(90deg, #e53e3e, #c53030);
+  border: none;
+  color: #ffffff;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  padding: 0.4rem 1.25rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+
+.logoutButton:hover {
+  background: linear-gradient(90deg, #c53030, #9b2c2c);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.actionButton {
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  border: none;
+  color: #ffffff;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  padding: 0.4rem 1.25rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+
+.actionButton:hover {
+  background: linear-gradient(90deg, #0056b3, #003d82);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.modal {
+  top: 20px;
+}
+
+.modal :global(.ant-modal-content) {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(145deg, #ffffff, #f9fafb);
+}
+
+.modal :global(.ant-modal-header) {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1a202c;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal :global(.ant-modal-body) {
+  padding: 1rem;
+}
+
+.form {
+  width: 100%;
+}
+
+.form :global(.ant-form-item) {
+  margin-bottom: 1rem;
+}
+
+.form :global(.ant-form-item-label > label) {
+  font-size: 0.9rem;
+  color: #4a5568;
+  height: auto;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+}
+
+.input {
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+  border: 1px solid #e2e8f0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  display: flex;
+  align-items: center;
+}
+
+.input :global(.ant-input-prefix),
+.input :global(.ant-input-suffix) {
+  margin: 0 0.7rem;
+}
+
+.input:hover,
+.input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  outline: none;
+}
+
+.input:disabled {
+  background-color: #f7fafc;
+  color: #4a5568;
+  cursor: not-allowed;
+}
+
+.select :global(.ant-select-selector) {
+  border-radius: 8px;
+  padding: 0.4rem;
+  height: 36px;
+  font-size: 0.9rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  border: 1px solid #e2e8f0;
+}
+
+.select :global(.ant-select-selection-item) {
+  line-height: 28px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.submitButton {
+  background: linear-gradient(90deg, #007bff, #0056b3);
+  border: none;
+  color: #ffffff;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  padding: 0.4rem 1.25rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+
+.submitButton:hover {
+  background: linear-gradient(90deg, #0056b3, #003d82);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.cancelButton {
+  font-size: 0.9rem;
+  border-radius: 8px;
+  padding: 0.4rem 1.25rem;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.015em;
+  background-color: #f7fafc;
+  border-color: #e2e8f0;
+  color: #1a202c;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+}
+
+.cancelButton:hover {
+  border-color: #007bff;
+  transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  .profileCard :global(.ant-card-head) {
+    font-size: 1.1rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .profileCard :global(.ant-card-body) {
+    padding: 0.75rem;
+  }
+
+  .courseGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .divider :global(.ant-divider-inner-text) {
+    font-size: 1.1rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.1rem;
+  }
+
+  .subSectionTitle {
+    font-size: 1rem;
+  }
+
+  .exploreButton,
+  .logoutButton {
+    font-size: 0.85rem;
+    padding: 0.3rem 1rem;
+  }
+
+  .actionButton {
+    font-size: 0.85rem;
+    padding: 0.3rem 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .editButton {
+    font-size: 1.1rem !important;
+  }
+
+  .modal :global(.ant-modal-content) {
+    max-width: 90%;
+    margin: 0 5%;
+  }
+
+  .modal :global(.ant-modal-header) {
+    font-size: 1.1rem;
+  }
+
+  .form :global(.ant-form-item-label > label) {
+    font-size: 0.85rem;
+  }
+
+  .input {
+    font-size: 0.85rem;
+    padding: 0.55rem;
+  }
+
+  .select :global(.ant-select-selector) {
+    font-size: 0.85rem;
+    padding: 0.35rem;
+    height: 32px;
+  }
+
+  .select :global(.ant-select-selection-item) {
+    line-height: 24px;
+  }
+
+  .submitButton,
+  .cancelButton {
+    font-size: 0.85rem;
+    padding: 0.3rem 1rem;
+  }
+}

@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.modal {
+  top: 20px !important;
+}
+
+.modal :global(.ant-modal-content) {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  max-width: 500px !important;
+  margin: 0 auto !important;
+  background: linear-gradient(145deg, #ffffff, #f7fafc);
+}
+
+.modal :global(.ant-modal-header) {
+  font-size: 1.75rem !important;
+  font-weight: 600 !important;
+  color: #1a202c !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.modal :global(.ant-modal-body) {
+  padding: 1rem !important;
+}
+
+.form {
+  width: 100%;
+}
+
+.form :global(.ant-form-item) {
+  margin-bottom: 1rem !important;
+}
+
+.form :global(.ant-form-item-label > label) {
+  font-size: 1rem !important;
+  color: #4a5568 !important;
+  height: auto !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+}
+
+.input {
+  border-radius: 8px !important;
+  padding: 0.65rem !important;
+  font-size: 0.95rem !important;
+  border: 1px solid #e2e8f0 !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+}
+
+.input:hover,
+.input:focus {
+  border-color: #007bff !important;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1) !important;
+  outline: none !important;
+}
+
+.disabledInput {
+  border-radius: 8px !important;
+  padding: 0.65rem !important;
+  font-size: 0.95rem !important;
+  border: 1px solid #e2e8f0 !important;
+  background-color: #f7fafc !important;
+  color: #4a5568 !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  cursor: not-allowed !important;
+}
+
+.select :global(.ant-select-selector) {
+  border-radius: 8px !important;
+  padding: 0.4rem !important;
+  height: 36px !important;
+  font-size: 0.95rem !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.select :global(.ant-select-selection-item) {
+  line-height: 28px !important;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.submitButton {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  border-radius: 8px !important;
+  padding: 0.4rem 1.25rem !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+.submitButton:hover {
+  background-color: #0056b3 !important;
+  border-color: #0056b3 !important;
+  transform: scale(1.02) !important;
+}
+
+.submitButton:global(.ant-btn-loading) {
+  background-color: #b3d4fc !important;
+  border-color: #b3d4fc !important;
+  cursor: not-allowed !important;
+}
+
+.cancelButton {
+  font-size: 0.9rem !important;
+  border-radius: 8px !important;
+  padding: 0.4rem 1.25rem !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  background-color: #f7fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #1a202c !important;
+  transition: border-color 0.3s ease, transform 0.2s ease !important;
+}
+
+.cancelButton:hover {
+  border-color: #007bff !important;
+  transform: scale(1.02) !important;
+}
+
+@media (max-width: 640px) {
+  .modal :global(.ant-modal-content) {
+    max-width: 90% !important;
+    margin: 0 5% !important;
+  }
+
+  .modal :global(.ant-modal-header) {
+    font-size: 1.5rem !important;
+  }
+
+  .form :global(.ant-form-item-label > label) {
+    font-size: 0.9rem !important;
+  }
+
+  .input {
+    font-size: 0.9rem !important;
+    padding: 0.55rem !important;
+  }
+
+  .disabledInput {
+    font-size: 0.9rem !important;
+    padding: 0.55rem !important;
+  }
+
+  .select :global(.ant-select-selector) {
+    font-size: 0.9rem !important;
+    padding: 0.35rem !important;
+    height: 32px !important;
+  }
+
+  .select :global(.ant-select-selection-item) {
+    line-height: 24px !important;
+  }
+
+  .submitButton,
+  .cancelButton {
+    font-size: 0.85rem !important;
+    padding: 0.3rem 1rem !important;
+  }
+}

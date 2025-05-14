@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.card {
+  background: linear-gradient(145deg, #ffffff, #f7fafc);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transform: scale(1.02);
+}
+
+.card :global(.ant-card-head) {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #1a202c !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  padding: 0.75rem 1rem !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.card :global(.ant-card-body) {
+  padding: 1rem !important;
+}
+
+.description {
+  font-size: 0.85rem;
+  color: #4a5568;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.button {
+  font-size: 0.85rem !important;
+  border-radius: 8px !important;
+  padding: 0.4rem 1rem !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+.button:global(.ant-btn-primary) {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+}
+
+.button:global(.ant-btn-primary):hover {
+  background-color: #0056b3 !important;
+  border-color: #0056b3 !important;
+  transform: scale(1.02) !important;
+}
+
+.button:global(.ant-btn-danger) {
+  background-color: #ff4d4f !important;
+  border-color: #ff4d4f !important;
+}
+
+.button:global(.ant-btn-danger):hover {
+  background-color: #ff1f21 !important;
+  border-color: #ff1f21 !important;
+  transform: scale(1.02) !important;
+}
+
+.button:global(.ant-btn-default) {
+  background-color: #f7fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #1a202c !important;
+}
+
+.button:global(.ant-btn-default):hover {
+  background-color: #e2e8f0 !important;
+  border-color: #cbd5e0 !important;
+  transform: scale(1.02) !important;
+}
+
+.modal {
+  top: 20px !important;
+}
+
+.modal :global(.ant-modal-content) {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+  background: linear-gradient(145deg, #ffffff, #f7fafc);
+}
+
+.modal :global(.ant-modal-header) {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #1a202c !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.modal :global(.ant-modal-body) {
+  padding: 1rem !important;
+}
+
+.modalText {
+  font-size: 0.9rem;
+  color: #4a5568;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.4;
+}
+
+.modal :global(.ant-modal-footer .ant-btn) {
+  font-size: 0.9rem !important;
+  border-radius: 8px !important;
+  padding: 0.4rem 1.25rem !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+}
+
+@media (max-width: 640px) {
+  .card :global(.ant-card-head) {
+    font-size: 1.1rem !important;
+    padding: 0.5rem 0.75rem !important;
+  }
+
+  .card :global(.ant-card-body) {
+    padding: 0.75rem !important;
+  }
+
+  .description {
+    font-size: 0.8rem;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .button {
+    width: 100% !important;
+    font-size: 0.8rem !important;
+    padding: 0.3rem 0.75rem !important;
+  }
+
+  .modal :global(.ant-modal-header) {
+    font-size: 1.1rem !important;
+  }
+
+  .modalText {
+    font-size: 0.85rem;
+  }
+
+  .modal :global(.ant-modal-footer .ant-btn) {
+    font-size: 0.85rem !important;
+    padding: 0.3rem 1rem !important;
+  }
+}

@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  background: #f7fafc;
+  min-height: calc(100vh - 200px);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #1a202c;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.createButton {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  border-radius: 8px !important;
+  padding: 0.4rem 1.25rem !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+.createButton:hover {
+  background-color: #0056b3 !important;
+  border-color: #0056b3 !important;
+  transform: scale(1.02) !important;
+}
+
+.noCourses {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.noCoursesText {
+  font-size: 0.95rem;
+  color: #4a5568;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.exploreButton {
+  background-color: #007bff !important;
+  border-color: #007bff !important;
+  color: #ffffff !important;
+  font-size: 0.9rem !important;
+  border-radius: 8px !important;
+  padding: 0.4rem 1.25rem !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  letter-spacing: -0.02em !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+}
+
+.exploreButton:hover {
+  background-color: #0056b3 !important;
+  border-color: #0056b3 !important;
+  transform: scale(1.02) !important;
+}
+
+.courseGrid {
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .title {
+    font-size: 1.5rem;
+  }
+
+  .createButton {
+    font-size: 0.85rem !important;
+    padding: 0.3rem 1rem !important;
+  }
+
+  .noCoursesText {
+    font-size: 0.9rem;
+  }
+
+  .exploreButton {
+    font-size: 0.85rem !important;
+    padding: 0.3rem 1rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem 0.5rem;
+  }
+
+  .title {
+    font-size: 1.25rem;
+  }
+
+  .noCoursesText {
+    font-size: 0.85rem;
+  }
+}
