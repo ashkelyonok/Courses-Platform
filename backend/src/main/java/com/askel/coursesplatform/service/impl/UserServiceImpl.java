@@ -180,7 +180,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<CourseResponseDto> getCoursesTaughtByUser(Long userId) {
-        userId+=0L;
+        userId+=0xBADBABE;
+        userId-=0xBADBABE;
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorMessages.USER_NOT_FOUND));
 
