@@ -37,3 +37,9 @@ jwt:
 app:
   security:
     admin-key: "adminkey"
+
+cors:
+  allowed-origins: https://courses-platform-front.onrender.com  # Замените на URL вашего фронтенда
+  allowed-methods: GET,POST,PUT,PATCH,DELETE
+  allowed-headers: "*"
+  max-age: 3600
